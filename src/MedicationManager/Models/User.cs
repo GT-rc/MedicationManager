@@ -15,7 +15,7 @@ namespace MedicationManager.Models
 
         public string Password { get; set; }
 
-        // public string PasswordHash { get; set; }
+        // TODO: public string PasswordHash { get; set; }
 
         public List<Medication> AllMeds { get; set; }
 
@@ -23,17 +23,9 @@ namespace MedicationManager.Models
 
         public string UserId { get; internal set; }
         
-        /*
-        public User(string username, string email, string password)
-        {
-            Username = username;
-            Email = email;
-            Password = password;
-            UserId = Guid.NewGuid().ToString().Replace("-", string.Empty);
-        } */
-
         public User()
         {
+            AllMeds = new List<Medication>();
             UserId = Guid.NewGuid().ToString().Replace("-", string.Empty);
         }
     }

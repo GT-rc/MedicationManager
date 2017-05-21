@@ -34,7 +34,6 @@ namespace MedicationManager.ViewModels
         public string VerifyPassword { get; set; }
 
         public string UserId { get; set; }
-
-
+        
     }
 }

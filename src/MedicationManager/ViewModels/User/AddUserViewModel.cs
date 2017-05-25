@@ -35,5 +35,9 @@ namespace MedicationManager.ViewModels
 
         public string UserId { get; set; }
         
+        public AddUserViewModel()
+        {
+
+        }
     }
 }

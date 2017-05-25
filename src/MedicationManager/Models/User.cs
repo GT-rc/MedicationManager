@@ -15,7 +15,7 @@ namespace MedicationManager.Models
 
         public string Password { get; set; }
 
-        // TODO: public string PasswordHash { get; set; }
+        public string PasswordHash { get; set; }
 
         public List<Medication> AllMeds { get; set; }
 

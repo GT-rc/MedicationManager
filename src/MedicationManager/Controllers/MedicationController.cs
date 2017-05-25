@@ -11,8 +11,7 @@ namespace MedicationManager.Controllers
 {
     public class MedicationController : Controller
     {
-        
-        // TODO: set up db context
+        // Set up db context
         private readonly ApplicationDbContext context;
 
         public MedicationController(ApplicationDbContext dbContext)

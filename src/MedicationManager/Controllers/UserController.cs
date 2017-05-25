@@ -24,13 +24,28 @@ namespace MedicationManager.Controllers
 
         // GET: /<controller>/
         [Route("/Login")]
-        public IActionResult Index()
+        public IActionResult Login()
         {
             ViewBag.username = username;
             return View();
         }
 
+        // POST -- Login a user
+        [Route("/Login")]
+        public IActionResult Login(UserIndexViewModel userIndexViewModel)
+        {
+            User loginTest = context.Users.Single(c => c.Username == userIndexViewModel.Username);
+
+            if (ModelState.IsValid)
+            {
+                // TODO: Add pw hash/salt to check logins against
+            }
+
+            return View(userIndexViewModel);
+        }
+
         // GET -- Add a new user
+        [Route("/Login/Add")]
         public IActionResult Add()
         {
             AddUserViewModel addUserViewModel = new AddUserViewModel();
@@ -51,6 +66,8 @@ namespace MedicationManager.Controllers
                     Email = addUserViewModel.Email,
                     Password = addUserViewModel.Password
                 };
+
+                // TODO: Check to verify the user is not already in the db, if not, add them
 
                 context.Users.Add(newUser);
                 context.SaveChanges();

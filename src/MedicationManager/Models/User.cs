@@ -19,7 +19,7 @@ namespace MedicationManager.Models
 
         public List<Medication> AllMeds { get; set; }
 
-        public PermissionLevel PermissionLevel { get; set; }
+        public PermissionLevel PermissionLevel { get; set; } = PermissionLevel.User;
 
         public string UserId { get; internal set; }
         

@@ -9,15 +9,16 @@ namespace MedicationManager.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        
+        public ApplicationDbContext(DbContextOptions options)
+            : base(options)
+        {
+        } 
+
         public DbSet<User> Users { get; set; }
         public DbSet<Medication> Medication { get; set; }
         public DbSet<MedSets> MedSets { get; set; }
         public DbSet<Set> Set { get; set; }
-
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -25,5 +26,16 @@ namespace MedicationManager.Data
             
             builder.Entity<MedSets>().HasKey(c => new { c.UserId, c.SetId });
         }
+        
+        public ApplicationDbContext()
+            : base()
+        {
+
+        }
+        /*
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
+        } */
     }
 }

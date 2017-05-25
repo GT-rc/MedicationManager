@@ -7,8 +7,9 @@ namespace MedicationManager.Models
 {
     public enum PermissionLevel
     {
-        Admin,
         User,
-        Readonly
+        Readonly,
+        Admin
+
     }
 }

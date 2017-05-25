@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MedicationManager.ViewModels;
 using MedicationManager.Models;
+using MedicationManager.Data;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,6 +13,13 @@ namespace MedicationManager.Controllers
 {
     public class UserController : Controller
     {
+        private readonly ApplicationDbContext context;
+
+        public UserController(ApplicationDbContext dbContext)
+        {
+            this.context = dbContext;
+        }
+
         public static string username;
 
         // GET: /<controller>/
@@ -22,12 +30,14 @@ namespace MedicationManager.Controllers
             return View();
         }
 
+        // GET -- Add a new user
         public IActionResult Add()
         {
             AddUserViewModel addUserViewModel = new AddUserViewModel();
             return View(addUserViewModel);
         }
 
+        // POST -- Add a new user
         [HttpPost]
         [Route("/Login/Add")]
         public IActionResult Add(AddUserViewModel addUserViewModel)
@@ -41,6 +51,9 @@ namespace MedicationManager.Controllers
                     Email = addUserViewModel.Email,
                     Password = addUserViewModel.Password
                 };
+
+                context.Users.Add(newUser);
+                context.SaveChanges();
 
                 return Redirect("/MedHome");
             }

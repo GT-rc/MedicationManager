@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MedicationManager.Data;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,14 +11,14 @@ namespace MedicationManager.Controllers
 {
     public class MedicationController : Controller
     {
-        /*
+        
         // TODO: set up db context
         private readonly ApplicationDbContext context;
 
         public MedicationController(ApplicationDbContext dbContext)
         {
             this.context = dbContext;
-        } */
+        } 
 
         // GET: /<controller>/
         [Route("/MedHome")]

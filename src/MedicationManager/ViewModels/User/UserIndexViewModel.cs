@@ -16,5 +16,7 @@ namespace MedicationManager.ViewModels
         [Display(Name = "Password: ")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        public string ErrorMessage { get; set; } = "empty";
     }
 }

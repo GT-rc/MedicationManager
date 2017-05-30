@@ -128,5 +128,14 @@ namespace MedicationManager.Controllers
 
             return View(addUserViewModel);
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            // do i need to search the user? 
+
+            await HttpContext.Authentication.SignOutAsync("MedicationCookieMiddlewareInstance");
+
+            return Redirect("/Login");
+        }
     }
 }

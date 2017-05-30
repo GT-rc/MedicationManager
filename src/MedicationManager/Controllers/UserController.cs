@@ -131,8 +131,6 @@ namespace MedicationManager.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            // do i need to search the user? 
-
             await HttpContext.Authentication.SignOutAsync("MedicationCookieMiddlewareInstance");
 
             return Redirect("/Login");

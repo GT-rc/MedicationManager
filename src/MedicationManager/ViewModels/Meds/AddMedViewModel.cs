@@ -34,6 +34,9 @@ namespace MedicationManager.ViewModels.Meds
 
         public List<SelectListItem> ToDay { get; set; }
 
+        [Required]
+        public string UserId { get; set; }
+
         public AddMedViewModel() : base() { }
 
         public AddMedViewModel(IEnumerable<ToD> times)

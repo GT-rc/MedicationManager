@@ -64,6 +64,8 @@ namespace MedicationManager.Controllers
                                 ExpiresUtc = DateTime.UtcNow.AddMinutes(60),
                                 IsPersistent = false,
                                 AllowRefresh = false });
+                        
+                        
 
                         return Redirect("/MedHome");
                     }
@@ -135,5 +137,8 @@ namespace MedicationManager.Controllers
 
             return Redirect("/Login");
         }
+
+        // Next Steps: Add Edit User
+        
     }
 }

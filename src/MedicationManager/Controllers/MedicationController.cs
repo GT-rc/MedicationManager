@@ -4,11 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MedicationManager.Data;
+using MedicationManager.ViewModels.Meds;
+using MedicationManager.Models;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MedicationManager.Controllers
 {
+    [Authorize]
     public class MedicationController : Controller
     {
         // Set up db context
@@ -17,7 +21,10 @@ namespace MedicationManager.Controllers
         public MedicationController(ApplicationDbContext dbContext)
         {
             this.context = dbContext;
-        } 
+        }
+
+        private static User UserLoggedIn;
+        // TODO: Figure out how to set this variable to the user who logged in in the UserController
 
         // GET: /<controller>/
         [Route("/MedHome")]
@@ -26,16 +33,17 @@ namespace MedicationManager.Controllers
             return View();
         }
 
-        /*
+        
         // To Add a new medication to your list.
         public IActionResult Add()
         {
-            // TODO: List<ToD> times = query for the list of ToD's and pass into the view model
-            AddMedViewModel addMedViewModel = new AddMedViewModel();
+            IEnumerable<ToD> times = (ToD[])Enum.GetValues(typeof(ToD));
+            
+            AddMedViewModel addMedViewModel = new AddMedViewModel(times);
 
             return View(addMedViewModel);
         }
-
+        
         [HttpPost]
         public IActionResult Add(AddMedViewModel addMedViewModel)
         {
@@ -48,21 +56,25 @@ namespace MedicationManager.Controllers
                     TimesXDay = addMedViewModel.TimesXDay,
                     Notes = addMedViewModel.Notes,
                     TimeOfDay = addMedViewModel.ToDID,
-                    // TODO: will need to look up value of tod id
+                    // TODO: will need to look up value of tod id -- UPDATE: Will pass as hidden value set in VM
                     Description = addMedViewModel.Description,
-                    RefillRate = addMedViewModel.RefillRate
+                    RefillRate = addMedViewModel.RefillRate,
+                    UserId = addMedViewModel.UserId
                 };
 
                 // TODO: add to db
-                
-                // TODO: save changes
+                context.Medication.Add(newMed);
+                // TODO: add to UserLoggedIn medication list
+
+                // save changes
+                context.SaveChanges();
 
                 return Redirect("/Medication/Index");
             }
 
             return View(addMedViewModel);
         }
-
+        /*
         public IActionResult Remove()
         {
             ViewBag.meds = 0;

@@ -17,6 +17,8 @@ namespace MedicationManager.Models
         public int TimeOfDay { get; set; }
         public string Description { get; set; }
         public int RefillRate { get; set; }
+        public string UserId { get; set; }
+
 
     }
 }

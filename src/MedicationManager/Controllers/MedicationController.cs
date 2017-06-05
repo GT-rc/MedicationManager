@@ -7,6 +7,7 @@ using MedicationManager.Data;
 using MedicationManager.ViewModels.Meds;
 using MedicationManager.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,7 +24,7 @@ namespace MedicationManager.Controllers
             this.context = dbContext;
         }
 
-        private static User UserLoggedIn;
+        // public static User UserLoggedIn => HttpContext.Authentication.GetAuthenticateInfoAsync.User;
         // TODO: Figure out how to set this variable to the user who logged in in the UserController
 
         // GET: /<controller>/
@@ -47,6 +48,18 @@ namespace MedicationManager.Controllers
         [HttpPost]
         public IActionResult Add(AddMedViewModel addMedViewModel)
         {
+            User userLoggedIn;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+                userLoggedIn = context.Users.Single(c => c.Username == userName);
+            }
+            else
+            {
+                return Redirect("/Login");
+            }
+            
             if (ModelState.IsValid)
             {
                 Medication newMed = new Medication
@@ -65,6 +78,7 @@ namespace MedicationManager.Controllers
                 // TODO: add to db
                 context.Medication.Add(newMed);
                 // TODO: add to UserLoggedIn medication list
+                userLoggedIn.AllMeds.Add(newMed);
 
                 // save changes
                 context.SaveChanges();

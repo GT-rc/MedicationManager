@@ -13,7 +13,8 @@ using System.Security.Claims;
 
 namespace MedicationManager.Controllers
 {
-    [Authorize]
+    // [Authorize] --- using this I get a forbidden error when I login, without it I just keep going 
+    // back to the login page...
     public class MedicationController : Controller
     {
         // Set up db context
@@ -31,7 +32,21 @@ namespace MedicationManager.Controllers
         [Route("/MedHome")]
         public IActionResult Index()
         {
-            return View();
+            User userLoggedIn;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+                userLoggedIn = context.Users.Single(c => c.Username == userName);
+            }
+            else
+            {
+                return Redirect("/Login");
+            }
+
+            IList<Medication> userMeds = userLoggedIn.AllMeds;
+
+            return View(userMeds);
         }
 
         
